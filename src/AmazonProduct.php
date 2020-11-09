@@ -196,11 +196,15 @@ class AmazonProduct extends AmazonProductsCore
 
         //SalesRankings
         if ($xml->SalesRankings) {
+            $tmp = array();
             foreach ($xml->SalesRankings->children() as $x) {
+                $data = [];
                 foreach ($x->children() as $y) {
-                    $this->data['SalesRankings'][$x->getName()][$y->getName()] = (string) $y;
+                    $data[$x->getName()][$y->getName()] = (string) $y;
                 }
+                array_push($tmp, $data);
             }
+            $this->data['SalesRankings'] = $tmp;
         }
 
         //LowestOfferListings
